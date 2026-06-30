@@ -1,4 +1,4 @@
-"""Shared plumbing for salescallaudit. Stdlib only. Structure, never meaning.
+"""Shared plumbing for call-craft. Stdlib only. Structure, never meaning.
 
 A function here may parse a file, map a column by synonym, split a transcript into turns, join on
 ids, count, or read/write JSON. It must NEVER score a call, classify a call by keyword, or decide a

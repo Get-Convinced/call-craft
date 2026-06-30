@@ -1,4 +1,4 @@
-# salescallaudit
+# call-craft
 
 Turn a sales team's real call transcripts into an interactive audit report: per-call scoring on a
 role-attributed rubric, deal post-mortems, a CRM-vs-call trust check, per-rep radar with per-spoke
@@ -28,7 +28,7 @@ degrades cleanly (no CRM means craft-only scoring, no funnel, no MEDDIC trust ch
 In your agentic CLI, invoke the skill and point it at a folder:
 
 ```
-/salescallaudit ./my-team-calls
+/call-craft ./my-team-calls
 ```
 
 It will: research the company off the web (and any docs you drop in) to build a grounded context,

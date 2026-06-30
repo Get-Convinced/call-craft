@@ -1,11 +1,11 @@
 ---
-name: salescallaudit
+name: call-craft
 description: Audit a B2B sales team from their real call transcripts and produce one interactive HTML report. Point it at a folder of call transcripts (Read.ai, Gong, Fireflies, Otter, or plain text) plus, optionally, a CRM deal export and rep notes. It researches the company off the web to build a grounded product/competitor context, infers each rep's role, reads every call in full, scores every rep on every call across a role-attributed rubric of the pressure moves a B2B call must make (discovery, MEDDPICC qualification, solutioning, deal control, urgency), writes a post-mortem per deal, runs an independent maker-checker adherence pass and a four-seat consultant council, and renders a self-contained report (org diagnosis, per-rep radar with per-spoke explainers and full score breakdowns, deal post-mortems, a CRM-vs-call trust check, and the council). Craft is kept strictly separate from outcome. Stage-aware: a late-stage move on an early call is NA, not a failure. Hermetic and engine-agnostic: ships no keys and no data, runs the judgment as subagents using your own CLI's model by default, with an optional bring-your-own API backend. Company and CRM agnostic; everything org-specific is discovered or configured at run time.
 argument-hint: "[<path-to-data-folder>]"
 user-invocable: true
 ---
 
-# salescallaudit — orchestrator
+# call-craft — orchestrator
 
 You are auditing a B2B sales organization from its real calls and producing one interactive HTML
 report. You are the **conductor**. The judgment (researching the company, inferring roles, scoring

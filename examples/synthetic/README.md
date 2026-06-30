@@ -49,7 +49,7 @@ surface.
 From your agentic CLI, point the skill at the `raw` folder in this directory:
 
 ```
-/salescallaudit ./examples/synthetic/raw
+/call-craft ./examples/synthetic/raw
 ```
 
 The skill will research the (fictional) seller as best it can, normalize these transcripts and the
