@@ -1,0 +1,68 @@
+# Talindro Freight - Discovery Call
+
+- **Date/Time (IST):** 2026-02-10T10:30
+- **Meeting ID:** SYN-CALL-0001
+- **Platform:** zoom
+- **Report:** https://example.invalid/recordings/SYN-CALL-0001
+- **Duration:** 41 min
+- **Attended:** Priya Anand, Helena Voss, Sam Oduya
+
+## Transcript
+
+**Priya Anand** [10:30:12]: Thanks for making time, Helena. Before I show you anything, I want to understand what made you take this call now. You reached out three weeks ago. What changed?
+
+**Helena Voss** [10:30:34]: We lost a major retail account in December. Their complaint was missed delivery windows. We were hitting maybe seventy percent on-time, and they wanted ninety-five. So my CEO told me to fix dispatch or we keep losing accounts like that one.
+
+**Priya Anand** [10:31:05]: That is a hard quarter. So the trigger is a lost account and a CEO mandate on on-time delivery. How long had the on-time number been slipping before they walked?
+
+**Helena Voss** [10:31:22]: It had been creeping down for two quarters. We grew volume faster than the desk could keep up.
+
+**Priya Anand** [10:31:40]: Got it. Help me see the current process. When an order comes in, who decides which truck it goes on and when it leaves?
+
+**Helena Voss** [10:31:58]: Right now it is two dispatchers working off a spreadsheet and their own memory. They batch orders by region in the morning and assign trucks by feel.
+
+**Priya Anand** [10:32:18]: By feel. So when volume spikes, the plan is only as good as the two of them on that day. What happens when one of them is out?
+
+**Helena Voss** [10:32:36]: Honestly, those are our worst days. The one who is left is firefighting and the misses pile up.
+
+**Priya Anand** [10:32:54]: That tracks. What does a missed window actually cost you when it happens?
+
+**Helena Voss** [10:33:14]: Per missed window we eat a chargeback, usually around four hundred dollars, plus the relationship damage. Last quarter we logged about three hundred misses.
+
+**Priya Anand** [10:33:36]: So roughly a hundred and twenty thousand in chargebacks a quarter, before the account churn. Who in your org carries that number? Is it you, or finance, or the CEO directly?
+
+**Helena Voss** [10:33:58]: It lands on me. I own the operations P&L, and that line is the one my CEO circles every month.
+
+**Priya Anand** [10:34:18]: Understood. Sam, you run the dispatch desk day to day, right? When the spreadsheet plan breaks mid-morning, what happens?
+
+**Sam Oduya** [10:34:36]: We re-plan on the fly. A driver calls in sick or a load is late from the dock, and we are rebuilding routes manually while trucks are already rolling. We lose an hour easy, and that hour is where the misses come from.
+
+**Priya Anand** [10:34:58]: And while you are rebuilding, are the drivers idle or are they running the stale plan?
+
+**Sam Oduya** [10:35:14]: Running the stale plan, which is the problem. By the time we catch up, three trucks are already in the wrong order.
+
+**Priya Anand** [10:35:34]: That is exactly the moment Northwind is built for. Let me be specific about how, and tell me if this maps to your day. We take your live orders, your truck capacities, and your delivery windows, and we generate the dispatch plan automatically each morning. When something breaks at ten a.m., the driver sick call, the late dock load, you press re-plan and the system rebuilds routes against the same constraints in about thirty seconds, not an hour. It is not a black box. The planner shows you why it moved a load so your dispatchers can override it.
+
+**Sam Oduya** [10:36:18]: The override matters. My dispatchers will not trust a tool that just hides the decision.
+
+**Priya Anand** [10:36:36]: Agreed, and that is why we expose the reasoning per load. Each move shows the constraint that drove it, the window, the capacity, the drive time, so your team is correcting a recommendation, not fighting a black box.
+
+**Sam Oduya** [10:37:00]: That I could sell to my dispatchers.
+
+**Priya Anand** [10:37:14]: Helena, if you went from seventy to even ninety percent on-time, what does that do to the chargeback line and to the account conversation?
+
+**Helena Voss** [10:37:36]: Ninety would roughly halve the chargebacks and, honestly, it would let me go back to that retail account with a real story. That is the bigger prize.
+
+**Priya Anand** [10:37:58]: Good. So success for you is a measurable on-time number you can take to the CEO and to that account. Who else needs to be convinced before this becomes a project? Is there a budget owner beyond you?
+
+**Helena Voss** [10:38:22]: Spend above fifty thousand a year goes to our CFO, Diane. And our head of IT will want to know how it connects to our TMS.
+
+**Priya Anand** [10:38:44]: Then here is what I would propose. I bring our solutions engineer to a working session in two weeks, we model one real region of yours end to end so you see the on-time lift on your own data, and we invite your IT lead so the TMS question gets answered in the room. After that you and I build the case for Diane together. Does the twenty-fourth at this time work?
+
+**Helena Voss** [10:39:14]: The twenty-fourth works. I will get Raj from IT on it.
+
+**Priya Anand** [10:39:30]: I will send the invite today with a short list of what data we will need so the session is real and not a slideshow. Sam, anything you want in that session specifically?
+
+**Sam Oduya** [10:39:52]: Show me the re-plan on a bad morning. That is what I need to believe.
+
+**Priya Anand** [10:40:08]: That is the demo. We will stage a driver-out scenario on your data and run it live. Thank you both. Invite goes out within the hour, and I will copy Raj.

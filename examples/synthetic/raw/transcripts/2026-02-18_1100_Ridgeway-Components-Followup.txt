@@ -1,0 +1,60 @@
+# Ridgeway Components - Follow-up and Pricing
+
+- **Date/Time (IST):** 2026-02-18T11:00
+- **Meeting ID:** SYN-CALL-0003
+- **Platform:** zoom
+- **Report:** https://example.invalid/recordings/SYN-CALL-0003
+- **Duration:** 28 min
+- **Attended:** Marcus Bell, Karen Liu, David Mensah
+
+## Transcript
+
+**Marcus Bell** [11:00:10]: Hi Karen, hi David. Following up from last week. I sent over the proposal, so I wanted to walk through it and see where your heads are at.
+
+**Karen Liu** [11:00:28]: Thanks Marcus. We looked at it. I will be straight with you, two things are giving us pause. The price came in higher than we expected, and David here has concerns about the integration with our existing WMS.
+
+**Marcus Bell** [11:00:52]: Okay, sure. On price, I hear you, but I would say you really do get a lot of value for it. It is a premium platform.
+
+**Karen Liu** [11:01:10]: That is the thing though. Your competitor quoted us about thirty percent less for what looks like the same route optimization. So I need to understand why we would pay more.
+
+**Marcus Bell** [11:01:30]: Right, well, ours is just more robust. The optimization engine is really best in class, and the support is great. I think once you are in it you will see the difference.
+
+**Karen Liu** [11:01:50]: That is a bit hand-wavy for me, Marcus. Can you point to something specific that justifies the gap?
+
+**Marcus Bell** [11:02:05]: I mean, it is hard to put a single number on it. It is the overall package. The analytics, the driver app, everything together. It is a whole platform versus a point tool.
+
+**Karen Liu** [11:02:25]: But we told you last week we only care about dispatch and routing right now. We do not need the driver app or the analytics suite yet.
+
+**Marcus Bell** [11:02:40]: Sure, sure. Well, the pricing is sort of bundled, so it is tough to strip those out. Let me see what I can do on the number, maybe I can get you a small discount.
+
+**Karen Liu** [11:02:58]: A discount on a bundle we did not ask for is not really the answer. What I am asking is what we get for the premium over the cheaper quote.
+
+**Marcus Bell** [11:03:16]: I understand. I think the reliability and the roadmap are worth it. We are always shipping new features.
+
+**Karen Liu** [11:03:30]: New features we also did not ask for.
+
+**David Mensah** [11:03:40]: Before we go further down the price road, I have the bigger blocker. We run an older WMS, an on-prem system, and your proposal assumes a cloud API connection. We do not have one exposed. How does your integration actually work in that case?
+
+**Marcus Bell** [11:04:05]: Yeah, so, we integrate with most WMS systems out of the box. It should be fine.
+
+**David Mensah** [11:04:18]: Most is doing a lot of work in that sentence. Ours is a 2014 on-prem deployment with no REST layer. Does Northwind connect to that, yes or no?
+
+**Marcus Bell** [11:04:35]: I would have to check with our technical team on the exact details of your specific setup. But generally we are very flexible on integrations.
+
+**David Mensah** [11:04:52]: So you do not know if it works with our system. That is a problem, because if it does not connect, the price conversation is moot.
+
+**Marcus Bell** [11:05:08]: Right, fair point. Let me, yeah, let me take that back to our engineers and confirm.
+
+**David Mensah** [11:05:20]: When you take it back, the specific question is whether you support a file-based or on-prem connector, because we cannot open an inbound cloud endpoint. That is a hard security rule on our side.
+
+**Marcus Bell** [11:05:40]: Understood, I will ask them specifically about that.
+
+**Karen Liu** [11:05:52]: Okay. So to summarize, we need two things. One, a real answer on whether you connect to David's WMS without an exposed cloud endpoint. Two, a price that reflects only the dispatch and routing piece we actually want. Without those, we cannot move forward.
+
+**Marcus Bell** [11:06:18]: Understood. I will get those answers. Should we put time on the calendar for next week?
+
+**Karen Liu** [11:06:30]: Send us the integration answer first. If it is a yes, then we will book a call. If it is a no, there is not much to discuss.
+
+**Marcus Bell** [11:06:46]: Makes sense. I will follow up by email once I hear back from engineering. Thanks both.
+
+**Karen Liu** [11:06:58]: Thanks Marcus.

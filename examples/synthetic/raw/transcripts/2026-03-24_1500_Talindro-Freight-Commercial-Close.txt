@@ -1,0 +1,54 @@
+# Talindro Freight - Commercial and Close Plan
+
+- **Date/Time (IST):** 2026-03-24T15:00
+- **Meeting ID:** SYN-CALL-0004
+- **Platform:** zoom
+- **Report:** https://example.invalid/recordings/SYN-CALL-0004
+- **Duration:** 38 min
+- **Attended:** Priya Anand, Dana Whitfield, Helena Voss, Diane Reyes, Raj Patel
+
+## Transcript
+
+**Priya Anand** [15:00:10]: Thanks everyone. Diane, Raj, good to have you. To recap for the room, two weeks ago we modeled Talindro's east region on your own data and the planner lifted modeled on-time from seventy-one to ninety-one percent. Helena has seen it. Today is about the commercial terms and the path to a decision. I have got Dana, who leads our team, here for the commercial part.
+
+**Helena Voss** [15:00:40]: For the record, the model was on our real February orders, not a sample. That is what made it land for me.
+
+**Diane Reyes** [15:00:54]: I saw the model. The on-time number is compelling. My job today is the number and the contract terms. The annual figure on the proposal is sixty-eight thousand. That is above what I had penciled in.
+
+**Dana Whitfield** [15:01:18]: Diane, let me anchor on what that number is buying before we talk about it. Helena's team is logging about a hundred and twenty thousand a quarter in chargebacks on missed windows. The east-region model alone showed a path to halving that. So the sixty-eight thousand annual is set against roughly two hundred and forty thousand a year of avoidable chargebacks, before the churn risk on accounts like the one you lost in December.
+
+**Diane Reyes** [15:01:54]: I follow the logic. I still need the annual under sixty for it to clear without a board sign-off, which would push this a quarter.
+
+**Dana Whitfield** [15:02:14]: I would rather not lose a quarter for either of us. Here is a trade, not a discount. I can bring the annual to fifty-eight thousand if we sign a two-year term instead of one, and if Helena agrees to be a reference for the on-time turnaround once we hit the ninety-percent mark. The price moves because your commitment moves, not because the value changed.
+
+**Diane Reyes** [15:02:50]: A two-year term at fifty-eight I can clear myself. The reference is fine assuming we actually hit the number. I would want a clause that ties the reference to that.
+
+**Dana Whitfield** [15:03:12]: That is fair and I will write it that way. Reference commitment triggers on verified ninety-percent on-time, measured on your data. Priya, capture that for the redline.
+
+**Priya Anand** [15:03:30]: Got it. Reference clause tied to verified ninety-percent on-time. Raj, that brings us to your piece. The integration. Where do we stand on connecting to your TMS?
+
+**Raj Patel** [15:03:48]: We ran the API test your SE sent. The connection works against our TMS sandbox. My open item is security review. I need your SOC 2 report and a data processing addendum before I can sign off, and that review takes my team about two weeks.
+
+**Priya Anand** [15:04:12]: The SOC 2 report and a draft DPA will be in your inbox today, Raj. Is two weeks from receipt, or two weeks from when your team next has a window?
+
+**Raj Patel** [15:04:30]: From receipt, as long as I get the documents today. If they slip, my queue pushes it.
+
+**Priya Anand** [15:04:46]: Then they go out today. That lands your review mid-April. Diane, on your side, walk me through the steps from a signed redline to a countersignature. Who else touches the contract?
+
+**Diane Reyes** [15:05:08]: Once terms are agreed, it goes to our legal counsel for a five-day review, then to me for signature. No board step at fifty-eight on a two-year. So legal is the gate.
+
+**Dana Whitfield** [15:05:28]: Then let us build the plan backward from a signed contract. Priya, lay out the dates.
+
+**Priya Anand** [15:05:42]: Here is the mutual plan. This week, we send SOC 2, the draft DPA, and the redlined contract with the reference clause. Raj's security review runs through the first week of April. Legal's five-day review overlaps where it can. Target a signed agreement by April fifteenth, with onboarding the east region the week after. Diane, Raj, Helena, does that sequence hold on your side?
+
+**Raj Patel** [15:06:14]: Two weeks for security is firm, but if I get the documents today it holds.
+
+**Diane Reyes** [15:06:26]: Legal at five days is realistic if I give them a heads-up now, which I will do after this call.
+
+**Helena Voss** [15:06:40]: That works for me. I want onboarding to start with the east region since that is the one we modeled and the one tied to the account I want to win back.
+
+**Dana Whitfield** [15:07:02]: Good. So we are aligned on fifty-eight thousand, two years, reference on verified ninety-percent, signature targeted April fifteenth, east region first. Priya owns the document send today, Raj owns security, Diane owns legal. Anything I have missed?
+
+**Diane Reyes** [15:07:28]: That captures it. Send the papers.
+
+**Priya Anand** [15:07:38]: They go out within the hour. I will send a written recap of these owners and dates right after this call so we are all working off the same plan. Thank you all.

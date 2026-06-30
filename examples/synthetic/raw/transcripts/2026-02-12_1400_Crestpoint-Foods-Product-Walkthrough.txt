@@ -1,0 +1,56 @@
+# Crestpoint Foods - Product Walkthrough
+
+- **Date/Time (IST):** 2026-02-12T14:00
+- **Meeting ID:** SYN-CALL-0002
+- **Platform:** zoom
+- **Report:** https://example.invalid/recordings/SYN-CALL-0002
+- **Duration:** 33 min
+- **Attended:** Marcus Bell, Trent Okafor
+
+## Transcript
+
+**Marcus Bell** [14:00:08]: Hi Trent, thanks for joining. I have got a demo environment loaded up, so I figured I would just walk you through everything Northwind can do and you can stop me with questions.
+
+**Trent Okafor** [14:00:22]: Sure, sounds good. I am mostly just looking to see what is out there.
+
+**Marcus Bell** [14:00:35]: Great. So this is our main dashboard. Up top you have got your fleet view, here is route optimization, over here is the analytics suite, and down here is the driver app. Let me start with route optimization because that is what most people love.
+
+**Trent Okafor** [14:01:10]: Okay.
+
+**Marcus Bell** [14:01:14]: So you drop in your stops, hit optimize, and the engine sequences them for you. It handles time windows, vehicle capacity, all of it. Really powerful. And then over here you can see the map updates live.
+
+**Trent Okafor** [14:01:45]: Neat. Is this sample data?
+
+**Marcus Bell** [14:01:50]: Yeah, this is our demo dataset. Now let me show you analytics. You get on-time percentage, cost per mile, utilization, all the KPIs you would want, and you can slice by region or by driver. Tons of reports in here.
+
+**Trent Okafor** [14:02:30]: There is a lot going on.
+
+**Marcus Bell** [14:02:35]: There is, and that is the beauty of it, it is all in one place. Let me show you the driver app too. Drivers get their manifest, turn-by-turn nav, proof of delivery with a photo and signature. It is really slick.
+
+**Trent Okafor** [14:03:20]: Got it. We do not actually have our own drivers, though, we use carriers.
+
+**Marcus Bell** [14:03:30]: Oh, no problem, the app is optional. Anyway, let me show you the geofencing feature, this is cool, you can draw a zone and get alerts.
+
+**Trent Okafor** [14:03:55]: Okay.
+
+**Marcus Bell** [14:04:00]: And we integrate with pretty much everything. TMS, ERP, you name it. Super flexible platform. So that is sort of the whirlwind tour. What do you think?
+
+**Trent Okafor** [14:04:25]: It looks capable. I am not totally sure what I would use first.
+
+**Marcus Bell** [14:04:37]: Totally fair. Most customers start with route optimization and grow from there. It is really a grow-with-you kind of platform.
+
+**Trent Okafor** [14:04:55]: Sure. To be honest I came in because our carrier costs jumped last year and my boss asked me to look at tools. I am not sure routing is even the thing.
+
+**Marcus Bell** [14:05:18]: Well, routing definitely helps with cost, so that could be a fit. We have got a cost-per-mile report I showed you earlier.
+
+**Trent Okafor** [14:05:32]: Right. What does something like this run?
+
+**Marcus Bell** [14:05:38]: It depends on fleet size and modules, but I can put together a quote. Ballpark, mid five figures a year for a fleet your size.
+
+**Trent Okafor** [14:05:58]: Okay. Let me chew on it and loop back to my team.
+
+**Marcus Bell** [14:06:08]: Sounds good. I will send over a recording of this and a one-pager. Just shoot me a note when you are ready and we can talk next steps.
+
+**Trent Okafor** [14:06:24]: Will do. Thanks for the overview.
+
+**Marcus Bell** [14:06:30]: Anytime, Trent. Talk soon.

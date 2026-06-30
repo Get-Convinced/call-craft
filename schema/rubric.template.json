@@ -1,0 +1,149 @@
+{
+  "_doc": "Rubric v2 — role-attributed 'pressure moves'. A B2B call builds or loses PRESSURE toward a decision. This rubric scores the MOVES that build pressure, each owned by the role responsible for it (a BDR/AE qualifies; a leader threads seniors and sets strategy — leaders are NOT scored on BANT/MEDDPICC). Scores 1-5, NA allowed. A model produces every score by reading calls in full; scripts only aggregate. Craft composite is the role-weighted mean of a rep's APPLICABLE (non-NA) dimensions. Outcomes are reported separately and NEVER folded into the composite. Org-agnostic; override per org via config.rubric.overrides + config.roles.",
+
+  "scale": {
+    "5": "Textbook — the move was made fully and well; a coaching example.",
+    "4": "Strong — made with minor gaps.",
+    "3": "Competent — adequate, met the bar.",
+    "2": "Weak — attempted but materially mishandled.",
+    "1": "Absent/harmful — the move was needed and not made, or made badly enough to cost pressure.",
+    "NA": "Not this role's job on this deal, or not observable in the corpus. Excluded from the composite (not a zero)."
+  },
+
+  "evidence": {
+    "precedence": ["transcript", "crm_stage_and_meddic", "rep_notes"],
+    "on_conflict": "Transcript wins. CRM/notes corroborate qualification, next-step landing, and stage momentum; they never override what the transcript plainly shows.",
+    "incomplete_corpus_principle": "Calls are one channel; email/phone/in-person are absent. Where an expected move is simply NOT VISIBLE, score NA with low confidence — NOT a low mark. CRITICAL SCOPE: this protects only the genuinely UNOBSERVABLE. A move that IS observable in-corpus but was done badly (a vague or unaccepted next step, a hollow promise to an unhappy buyer, a generic question, a dodged objection) is observably mishandled and scores LOW — it is never NA, and off-channel protection may move a score to NA but NEVER inflate it upward. Still TRACK progression: CRM stage advancement and notes are independent evidence the deal moved even when the move happened off-corpus. Absence of evidence is not evidence of absence; but a visible failure is evidence of failure."
+  },
+
+  "confidence": {
+    "high": "Multiple good-quality calls clearly attributable to this rep; move directly observed.",
+    "medium": "One good call, or partial attribution/quality.",
+    "low": "Sparse/poor calls, ambiguous attribution, or a judgment leaning on absence — directional only."
+  },
+
+  "groups": {
+    "discovery":     "What the rep must LOCK — why-now, what's broken, who pays, who wins. (owner: AE on-call; BDR pre-call; SE for technical depth)",
+    "qualification": "MEDDPICC, not BANT. A BDR/AE responsibility done before or early in the cycle — NOT a leader move. Report comments when no qualification evidence exists.",
+    "solutioning":   "Tie the exact capability to the pinned pain, with believable proof. (owner: SE/Presales + AE)",
+    "deal_control":  "Prospect org: who owns pain, who signs, who blocks; equip the champion; lock the mutual next step. (owner: AE + Sales Leader)",
+    "urgency":       "Build urgency on the buyer's real deadline; thread the right seniors both sides. (owner: AE + Sales Leader)"
+  },
+
+  "dimensions": [
+    {"id":"DL_NOW","group":"discovery","name":"Change trigger (why now)","arc":true,
+     "anchors":"5: surfaced exactly why the buyer is moving now and what changed. 3: vague timing. 1: never asked why now. NA: pure delivery/internal call."},
+    {"id":"DL_BROKEN","group":"discovery","name":"Broken process pinned","arc":true,
+     "anchors":"5: pinned what's broken in the current process with a number/frequency/missed-target. 3: named the problem, soft on specifics. 1: pain stayed abstract. NA: n/a to role."},
+    {"id":"DL_COST","group":"discovery","name":"Cost owner & quantified pain","arc":true,
+     "anchors":"5: identified who carries the cost and quantified it (currency/time/risk). 3: cost implied. 1: no cost of the problem established. NA: too early."},
+    {"id":"DL_WIN","group":"discovery","name":"Who wins (champion's stake)","arc":true,
+     "anchors":"5: established who wins personally/organizationally if the change works. 3: partial. 1: no stakeholder upside identified. NA: too early."},
+    {"id":"DL_PREP","group":"discovery","name":"Research & domain command","arc":true,
+     "anchors":"Did the rep enter prepared and speak the buyer's world credibly? 5: visibly researched THIS account, asked sharp seniority-appropriate questions, and was fluent in the customer's industry economics/operations. 3: competent but generic. 1: asked ICP-obvious questions whose answer is on the company's homepage (e.g. 'do you ship by rail/sea/road?' to a $10B+ supply-chain head), OR got corrected/schooled by the buyer on a basic of their own industry. NA: pure delivery/internal call. Buyer correcting the rep on fundamentals is a hard 1-2 signal."},
+
+    {"id":"Q_METRIC","group":"qualification","name":"Metrics","arc":true,"meddic":"M",
+     "anchors":"5: a quantified success metric the buyer will judge against. 3: directional. 1: none. NA: not this role / too early."},
+    {"id":"Q_EB","group":"qualification","name":"Economic buyer","arc":true,"meddic":"E",
+     "anchors":"5: identified AND accessed the budget authority. 3: identified, not engaged. 1: unknown late in cycle. NA: not this role / early intro."},
+    {"id":"Q_DECISION","group":"qualification","name":"Decision process & criteria","arc":true,"meddic":"D",
+     "anchors":"5: how and when they decide and on what criteria. 3: partial. 1: no idea how the decision gets made. NA: not this role / early."},
+    {"id":"Q_PAPER","group":"qualification","name":"Paper process","arc":true,"meddic":"P",
+     "anchors":"5: procurement/legal/security path mapped. 3: aware. 1: blind to it late-stage. NA: not this role / early."},
+    {"id":"Q_COMPETITION","group":"qualification","name":"Competition / alternatives","arc":true,"meddic":"C",
+     "anchors":"5: knows the incumbent/alternatives and the buyer's lean. 3: aware. 1: blind. NA: not this role / early."},
+
+    {"id":"SO_RELEVANCE","group":"solutioning","name":"Relevance to pinned pain","arc":true,
+     "anchors":"5: tied the EXACT capability to the buyer's specific pinned pain. 3: on-target but broad. 1: capability tour disconnected from the pain. NA: non-solution call."},
+    {"id":"SO_PROOF","group":"solutioning","name":"Proof brought / committed","arc":true,
+     "anchors":"5: brought (or concretely committed) the specific proof that would make it believable. 3: generic proof. 1: proof deferred to 'a later chat'. NA: too early."},
+    {"id":"SO_ACCURACY","group":"solutioning","name":"Technical accuracy","arc":true,
+     "anchors":"5: precise AND specific — concrete, verifiable, correct details, and corrected own errors where they arose. 3: no false claims but generic/imprecise. CRITICAL: 'made no overclaim' ALONE is a 3, NEVER a 5; a vague pitch that is too non-specific to be wrong is not accuracy (that is hand-waving, see SO_SUBSTANCE) and must not be rewarded with a high accuracy score. 1: material false/overstated claim left standing. NA: non-technical call."},
+    {"id":"SO_SUBSTANCE","group":"solutioning","name":"Substance over hand-waving","arc":true,
+     "anchors":"Did the rep explain HOW, concretely, or just sell buzzwords? 5: concrete and specific — named the actual mechanism, modules, data, or steps and how they work on the buyer's real process. 3: a mix of specifics and generic claims. 1: hand-waving — promised outcomes ('we'll automate everything', 'AI will handle it', 'fully end-to-end', 'it's all automated') with no mechanism, no specifics, and no proof; buzzword-driven and substance-free. A claim being technically true does NOT make it substantive. NA: no solution/capability discussion arose."},
+    {"id":"KN_GAP","group":"solutioning","name":"Knowledge-gap handling","arc":true,
+     "anchors":"How the rep handles a PERIPHERAL question outside their scope, with the buyer's confidence intact (distinct from accuracy; and NOT a substitute for delivering the core thing the meeting was for). 5: acknowledged a niche gap plainly, committed to a specific owned follow-up or brought the right expert, AND the buyer stayed confident. 3: deflected but recovered. 1: bluffed/overclaimed, went evasive, or left a direct question hanging. HARD LIMITS: (a) being unable to DEMONSTRATE the core capability the meeting was for and punting it to 'later/an expert' is a PROOF & PREPARATION failure, not graceful handling: score SO_PROOF/SO_DESIGN/DL_PREP low and KN_GAP <= 2, do not credit the punt here. (b) SENTIMENT GATE: if the buyer was annoyed/disengaged or the call cratered, a 'committed to follow-up' is a hollow punt, not competence: cap at 2. NA: no out-of-depth question arose."},
+    {"id":"SO_DESIGN","group":"solutioning","name":"Deal-level solution design","arc":true,
+     "anchors":"5: a coherent solution mapped to THIS deal's workflow and constraints. 3: partial mapping. 1: generic demo on sample data, no design. NA: too early."},
+
+    {"id":"DC_MULTITHREAD","group":"deal_control","name":"Multi-threading","arc":true,
+     "anchors":"5: mapped/engaged who owns the pain, who signs, who blocks. 3: two contacts. 1: single-threaded. NA: first intro."},
+    {"id":"DC_CHAMPION","group":"deal_control","name":"Champion enablement","arc":true,
+     "anchors":"5: equipped the champion to sell internally (ROI, narrative, proof they can forward). 3: some support. 1: left the champion to build the case alone. NA: no champion yet."},
+    {"id":"DC_ADAPT","group":"deal_control","name":"Objection handling & recovery","arc":true,
+     "anchors":"When the buyer pushes back (price/competitor/fit), exposes a gap, or redirects the conversation, does the rep hold credibility and re-anchor on a stronger lever? 5: met the objection with an evidence-backed reframe and pivoted to the lever that actually matters to this buyer (e.g. challenged on truck-fill at a margin-sensitive cement co, pivots to dispatch-planning / margin-accretion). 3: handled it adequately. 1: conceded, got vague/defensive, doubled down on the losing thread, or let the buyer school them and never recovered. NA: the buyer never pushed back or challenged in-corpus."},
+    {"id":"DC_NEXTSTEP","group":"deal_control","name":"Mutual next step","arc":true,"off_channel_sensitive":true,
+     "anchors":"Score the LANDING of a real, mutual commitment, NOT the existence of a polite promise. 5: buyer actively committed to a concrete, dated next step (proposed/accepted a specific time). 3: a real next step agreed in principle but undated. 2: rep proposed a next step but the buyer only gave a non-committal/brush-off 'yes', OR no date was set. 1: no next step, or the buyer declined/disengaged. HARD GATE: if the buyer's sentiment at close was negative, annoyed, or disengaged, DC_NEXTSTEP cannot exceed 2 no matter what words were exchanged (a polite 'yes yes we'll reconnect' from an unhappy buyer who then goes silent is a 1-2, never a 4). OFF-CHANNEL: NA/low-confidence applies ONLY when the next step is genuinely not observable in-corpus; a visibly hollow promise IS observable and scores low. Off-channel protection may move a score to NA, never UP."},
+
+    {"id":"U_URGENCY","group":"urgency","name":"Urgency built","arc":true,
+     "anchors":"5: built urgency on the buyer's real deadline / cost of delay. 3: mild. 1: a stated deadline was left unused. NA: none surfaced."},
+    {"id":"U_SENIOR","group":"urgency","name":"Senior threading","arc":true,
+     "anchors":"5: named the prospect senior who owns it and looped the right seller-side senior. 3: one side. 1: no senior threading on a deal that needed it. NA: too early / not this role."},
+
+    {"id":"SO_BUSINESSCASE","group":"solutioning","name":"Value / ROI business case","arc":true,
+     "anchors":"Is the value anchored on THIS customer's real economic driver, not generic ROI? 5: identified the lever that actually moves this buyer's economics given their industry (e.g. margin-accretion for a margin-sensitive logistics/cement op, not just 'efficiency') and tied the solution and a payback to it. 3: quantified but generic value. 1: feature value, or an ROI claim disconnected from what drives this customer's P&L. NA: too early, or no value discussion arose."},
+    {"id":"DC_MAP","group":"deal_control","name":"Mutual action plan","arc":true,"off_channel_sensitive":true,
+     "anchors":"5: a dated, owner-assigned shared plan through to a decision/signature, co-built with the buyer. 3: an informal multi-step sequence. 1: no path beyond the next call. NA: pre-qualification."},
+    {"id":"DC_COMMERCIAL","group":"deal_control","name":"Commercial control / negotiation","arc":true,
+     "anchors":"5: anchored value, traded concessions for commitments, controlled discount cadence. 3: handled pricing adequately. 1: conceded price or terms unilaterally with nothing in return. NA: no commercial/pricing discussion in-corpus."},
+    {"id":"DC_COMPETE","group":"deal_control","name":"Competitive differentiation","arc":true,
+     "anchors":"5: shaped the decision criteria to the org's strengths or set a trap the incumbent fails. 3: differentiated on request. 1: let the buyer's incumbent-favoring criteria stand unchallenged. NA: no competitor/alternative in play."}
+  ],
+
+  "diagnostics": {
+    "_doc": "Per-DEAL (not per-rep). The model fills these once per deal from the full read; the report renders them as the deal's visual story.",
+    "pressure_pattern": {
+      "_doc": "Did the deal follow the five-step pressure-loss sequence? Each step: present (bool) + evidence quote+call_id.",
+      "steps": ["buyer_reacts","seller_explains","pain_stays_soft","buyer_gets_homework","deal_cools"]
+    },
+    "missing_moves": {
+      "_doc": "The four moves that turn interest into a stall. Each: status (done|partial|missing) + one-line note + evidence.",
+      "moves": ["discovery","solutioning","prospect_org","urgency_senior"]
+    },
+    "must_lock": {
+      "_doc": "The five things the rep must lock. Each: locked (bool) + evidence quote+call_id.",
+      "items": ["why_now","whats_broken","who_carries_cost","who_wins","what_proof"]
+    }
+  },
+
+  "role_archetypes": {
+    "_doc": "A model assigns each rep an archetype (Phase 3); the operator confirms. excluded_from_ranking reps are analyzed but never ranked. responsible_dims = the dims this role is scored on (others should be NA). weights multiply into the composite. bar = expected composite.",
+
+    "founder-exec": {"label":"Founder / Executive","excluded_from_ranking":true,"bar":4.0,
+      "responsible_for":"Vision, exec-to-exec trust, unblocking; parachutes into deep-stage deals.",
+      "responsible_dims":["DL_NOW","DL_WIN","SO_RELEVANCE","DC_MULTITHREAD","DC_CHAMPION","U_URGENCY","U_SENIOR"],
+      "weights":{"DL_NOW":1.0,"DL_WIN":1.0,"SO_RELEVANCE":1.0,"DC_MULTITHREAD":1.25,"DC_CHAMPION":1.25,"U_URGENCY":1.25,"U_SENIOR":1.5}},
+
+    "sales-leader": {"label":"Sales Leader (Country/Regional Head, Director)","excluded_from_ranking":false,"bar":4.0,
+      "responsible_for":"Leads AND often runs deals. When independently running a deal, held to the FULL rubric (discovery, qualification, solutioning, deal control, close) PLUS the leadership moves they uniquely own: deal strategy, multi-threading, economic-buyer access, champion enablement, urgency, senior threading, coaching the room. When only parachuting into another rep's deal, score just the leadership moves and NA the rest.",
+      "responsible_dims":["DL_NOW","DL_BROKEN","DL_COST","DL_WIN","DL_PREP","Q_METRIC","Q_EB","Q_DECISION","Q_PAPER","Q_COMPETITION","SO_RELEVANCE","SO_PROOF","SO_ACCURACY","SO_SUBSTANCE","KN_GAP","SO_DESIGN","SO_BUSINESSCASE","DC_MULTITHREAD","DC_CHAMPION","DC_ADAPT","DC_NEXTSTEP","DC_MAP","DC_COMMERCIAL","DC_COMPETE","U_URGENCY","U_SENIOR"],
+      "weights":{"DL_NOW":1.0,"DL_BROKEN":1.0,"DL_COST":1.0,"DL_WIN":1.25,"DL_PREP":1.25,"Q_METRIC":1.0,"Q_EB":1.5,"Q_DECISION":1.0,"Q_PAPER":1.0,"Q_COMPETITION":1.0,"SO_RELEVANCE":1.0,"SO_PROOF":1.0,"SO_ACCURACY":0.75,"SO_SUBSTANCE":1.0,"KN_GAP":1.0,"SO_DESIGN":1.0,"SO_BUSINESSCASE":1.25,"DC_MULTITHREAD":1.75,"DC_CHAMPION":1.5,"DC_ADAPT":1.5,"DC_NEXTSTEP":1.5,"DC_MAP":1.5,"DC_COMMERCIAL":1.5,"DC_COMPETE":1.25,"U_URGENCY":1.5,"U_SENIOR":2.0}},
+
+    "ae-closer": {"label":"ESM / Account Executive (primary seller)","excluded_from_ranking":false,"bar":3.5,
+      "responsible_for":"The front-line seller who does the heavy work and owns the deal end to end: discovery, MEDDPICC qualification, solutioning relevance and proof, multi-threading, champion enablement, mutual next step, urgency, senior threading. Held to the full rubric.",
+      "responsible_dims":["DL_NOW","DL_BROKEN","DL_COST","DL_WIN","DL_PREP","Q_METRIC","Q_EB","Q_DECISION","Q_PAPER","Q_COMPETITION","SO_RELEVANCE","SO_PROOF","SO_ACCURACY","SO_SUBSTANCE","KN_GAP","SO_DESIGN","SO_BUSINESSCASE","DC_MULTITHREAD","DC_CHAMPION","DC_ADAPT","DC_NEXTSTEP","DC_MAP","DC_COMMERCIAL","DC_COMPETE","U_URGENCY","U_SENIOR"],
+      "weights":{"DL_NOW":1.25,"DL_BROKEN":1.25,"DL_COST":1.25,"DL_WIN":1.0,"DL_PREP":1.5,"Q_METRIC":1.25,"Q_EB":1.5,"Q_DECISION":1.25,"Q_PAPER":1.0,"Q_COMPETITION":1.0,"SO_RELEVANCE":1.25,"SO_PROOF":1.25,"SO_ACCURACY":1.0,"SO_SUBSTANCE":1.25,"KN_GAP":1.0,"SO_DESIGN":1.0,"SO_BUSINESSCASE":1.25,"DC_MULTITHREAD":1.5,"DC_CHAMPION":1.5,"DC_ADAPT":1.5,"DC_NEXTSTEP":2.0,"DC_MAP":1.5,"DC_COMMERCIAL":1.25,"DC_COMPETE":1.0,"U_URGENCY":1.5,"U_SENIOR":1.25}},
+
+    "technical-pm": {"label":"Technical Project Manager (solutioning assist on sales calls)","excluded_from_ranking":false,"rank_lane":"solutioning","bar":3.5,
+      "responsible_for":"Not a quota seller and not a dedicated presales org. A technical/delivery PM pulled into sales calls to assist solutioning: technical discovery, tying capability to the buyer's pain, bringing proof, technical accuracy, and deal-level solution design. NOT commercial qualification, close, urgency, or threading. Ranked in a solutioning lane, separate from sellers.",
+      "responsible_dims":["DL_BROKEN","DL_PREP","SO_RELEVANCE","SO_PROOF","SO_ACCURACY","SO_SUBSTANCE","KN_GAP","SO_DESIGN"],
+      "weights":{"DL_BROKEN":1.0,"DL_PREP":1.25,"SO_RELEVANCE":1.5,"SO_PROOF":1.5,"SO_ACCURACY":1.75,"SO_SUBSTANCE":1.5,"KN_GAP":1.5,"SO_DESIGN":2.0}},
+
+    "sdr-prospector": {"label":"SDR / BDR / Prospector","excluded_from_ranking":false,"bar":3.0,
+      "responsible_for":"Top-of-funnel: open the meeting, light discovery, early MEDDPICC capture, crisp positioning, book a real next step. NOT solutioning, deal-control strategy, or senior threading.",
+      "responsible_dims":["DL_NOW","DL_BROKEN","DL_PREP","Q_METRIC","Q_EB","Q_DECISION","SO_RELEVANCE","SO_SUBSTANCE","DC_ADAPT","DC_NEXTSTEP"],
+      "weights":{"DL_NOW":1.5,"DL_BROKEN":1.25,"DL_PREP":1.5,"Q_METRIC":1.25,"Q_EB":1.0,"Q_DECISION":1.0,"SO_RELEVANCE":1.0,"SO_SUBSTANCE":1.25,"DC_ADAPT":1.25,"DC_NEXTSTEP":1.75}},
+
+    "partner-external": {"label":"Partner / External (not the selling org)","excluded_from_ranking":true,"excluded_from_scoring":true,"bar":null,
+      "responsible_for":"Channel/partner or customer-side participant. Never scored as one of the org's reps.","responsible_dims":[],"weights":{}}
+  },
+
+  "seniority_bars": {"_doc":"Optional per-rep override by seniority (config.roles.overrides[].seniority).","leadership":4.0,"senior":3.5,"mid":3.25,"junior":3.0},
+
+  "composite": {
+    "formula":"sum(weight[dim]*score[dim] for non-NA dims) / sum(weight[dim] for non-NA dims)",
+    "na_excluded":true,"low_confidence_downweight":0.7,"min_dims_for_composite":4,
+    "outcomes_separate":true,
+    "_outcomes_note":"Outcome fields (won/lost/stalled, ARR, stage path) are displayed beside the composite and never enter the formula."
+  }
+}

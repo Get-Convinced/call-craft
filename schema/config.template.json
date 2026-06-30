@@ -1,0 +1,123 @@
+{
+  "_doc": "Per-run configuration. Everything org-specific lives here so the skill stays company/CRM agnostic. Copy to <workdir>/config.json and fill. Leave stage_map/stage_order until you see real stage labels in Phase 2, then rerun.",
+
+  "org_name": "",
+  "product_oneliner": "",
+  "as_of_date": "YYYY-MM-DD",
+  "org_domains": ["yourcompany.com"],
+  "_org_domains_doc": "Email domains of the SELLING org's reps. Used to split internal reps from external customers/partners and to build the roster keyed by email. Anyone whose email is on these domains is a candidate rep; everyone else is external.",
+
+  "scope": {
+    "_doc": "Optional narrowing. null = whole corpus. Stated plainly in the report caveats.",
+    "date_from": null,
+    "date_to": null,
+    "sample_deal_ids": null,
+    "_sample_doc": "For a scoped pilot: list of deal_ids (or account names) to run before the full corpus. Set null for full run."
+  },
+
+  "terminology": {
+    "stall_label": "Hold",
+    "_stall_label_doc": "The operator's word for the parking stage: 'Hold' / 'Stalled' / 'Nurture' / 'Parked'.",
+    "recording_link_label": "Recording"
+  },
+
+  "currency": {
+    "_doc": "Discovered from the data, not assumed. Set the symbol the deals and the calls actually use (dollars, rupees, euros, pounds). style 'short' formats large numbers as K/M/B; style 'indian' uses lakh/crore. The report reads this; nothing is hard-coded.",
+    "symbol": "$",
+    "code": "USD",
+    "style": "short"
+  },
+
+  "ingest": {
+    "transcripts_dir": "raw/transcripts",
+    "deals_csv": "raw/crm/deals.csv",
+    "stage_history_csv": "raw/crm/stage_history.csv",
+    "notes_csv": "raw/crm/notes.csv",
+    "_doc": "Override paths if the layout differs. crm_columns/stage_columns/notes_columns map the export's real headers to canonical names (synonyms tried in order).",
+
+    "crm_columns": {
+      "deal_id": ["Record Id", "Deal Id", "Opportunity Id", "Id"],
+      "deal_name": ["Deal Name", "Opportunity Name", "Name"],
+      "account": ["Account Name", "Company", "Account"],
+      "owner": ["Deal Owner", "Owner", "Account Executive"],
+      "stage": ["Stage", "Deal Stage"],
+      "amount_arr": ["Annual Recurring Revenue (INR)", "ARR", "Amount"],
+      "amount_otc": ["One Time Implementation (INR)", "One Time", "Implementation Fee"],
+      "created_time": ["Created Time", "Created", "Deal Created On"],
+      "closing_date": ["Closing Date", "Close Date"],
+      "products": ["Products Offered", "Products"],
+      "region": ["Region", "Geo"],
+      "meddic_pain": ["Identify Pain", "Pain"],
+      "meddic_champion": ["Champion"],
+      "meddic_economic_buyer": ["Economic Buyer", "EB"],
+      "meddic_metric": ["Metric", "Metrics"],
+      "meddic_decision_process": ["Decision Making Process", "Decision Process"],
+      "meddic_decision_criteria": ["Decision Making Criteria", "Decision Criteria"],
+      "next_step": ["Next Step", "Next Steps"]
+    },
+
+    "stage_columns": {
+      "deal_id": ["Record Id", "Record Id (Stage History)", "Deal Id"],
+      "deal_name": ["Deal Name"],
+      "moved_to": ["Moved To", "To Stage", "New Stage"],
+      "from_stage": ["Stage (Stage History)", "From Stage", "Old Stage"],
+      "stage_duration_days": ["Stage Duration (Calendar Days)", "Stage Duration"],
+      "modified_time": ["Modified Time (Stage History)", "Modified Time", "Change Time"]
+    },
+
+    "notes_columns": {
+      "note_id": ["Record Id", "Note Id"],
+      "deal_id": ["Parent ID.id", "Parent Id", "Associated_Id", "Deal Id"],
+      "deal_name": ["Parent ID", "Deal Name"],
+      "content": ["Note Content", "Content", "Note"],
+      "owner": ["Note Owner", "Created By", "Owner"],
+      "created_time": ["Created Time", "Created"]
+    },
+
+    "recording_link_column": "report_url",
+    "_recording_doc": "Where the transcript's recording URL is read from (transcript header field). 'no link' renders if absent."
+  },
+
+  "stage_map": {
+    "_doc": "Map each raw stage label to a canonical rung. Fill after Phase 2 prints the real labels. Canonical rungs: lead, qualify, demo, proposal, negotiation, won, lost, stalled.",
+    "_example": {"Demo & Value Proposition Presented": "demo", "Proposal/Price Quote": "proposal", "Negotiation/Review": "negotiation", "Closed Won": "won", "Closed Lost": "lost", "Hold": "stalled"}
+  },
+  "stage_order": ["lead", "qualify", "demo", "poc", "proposal", "negotiation", "won", "lost", "stalled"],
+
+  "stalled_definition": {
+    "_doc": "Which deals count as stalled. derived_from='auto' lets link.py detect it; set 'config' to force.",
+    "derived_from": "auto",
+    "stage_names": [],
+    "inactivity_days": null
+  },
+
+  "scoring_universe": {
+    "_doc": "Which calls feed rep×deal SCORES (the rest are context only).",
+    "score_only_external_deal_joined": true,
+    "include_external_accounts_without_crm_deal": true,
+    "exclude_call_status": ["no_show", "aborted"],
+    "exclude_transcript_quality": ["poor"],
+    "internal_calls_are_context_only": true
+  },
+
+  "roles": {
+    "_doc": "Phase 3 infers each rep's archetype; the operator confirms here. overrides[] forces an archetype/seniority/exclusion. name_fixes consolidates display-name variants onto one canonical rep (keyed by email when possible).",
+    "overrides": [],
+    "_overrides_example": [{"email": "person@yourcompany.com", "name": "Jane Doe", "archetype": "ae-closer", "seniority": "senior", "joined": "2025-05-01", "left": null, "exclude_from_ranking": false}],
+    "name_fixes": [],
+    "_name_fixes_example": [{"canonical_email": "jane.doe@yourcompany.com", "canonical_name": "Jane Doe", "variants": ["Jane Doe Doe", "jane d", "Conference Room (Jane)"]}]
+  },
+
+  "rubric": {
+    "_doc": "Overrides on schema/rubric.template.json. Leave {} to use defaults. You can override dimension weights per archetype, role bars, or per-rep seniority bars.",
+    "overrides": {}
+  },
+
+  "min_calls_to_rank_rep": 3,
+  "_min_calls_doc": "Reps with fewer scored deals/calls than this are shown in a directional appendix, not the ranked leaderboard.",
+
+  "caveats": [
+    "The corpus is calls only. Email, phone, and in-person interactions are not included; absence of a behavior in the corpus is flagged, not penalized.",
+    "Craft scores are kept separate from deal outcomes by design."
+  ]
+}

@@ -1,0 +1,5 @@
+deal_id,account,stage,owner,amount,created_date,economic_buyer,pain
+SYN-DEAL-001,Talindro Freight,Negotiation,Priya Anand,58000,2026-02-03,Diane Reyes (CFO),Missed delivery windows; 70% on-time vs 95% target; ~300 misses/qtr; lost a retail account
+SYN-DEAL-002,Crestpoint Foods,Closed Lost,Marcus Bell,45000,2026-02-09,,
+SYN-DEAL-003,Ridgeway Components,Hold,Marcus Bell,52000,2026-02-04,Karen Liu (VP Ops),
+SYN-DEAL-004,Brightway Distribution,Qualify,Priya Anand,40000,2026-02-20,,Manual route planning; driver overtime creep
