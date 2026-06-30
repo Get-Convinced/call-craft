@@ -49,4 +49,6 @@ Your transcripts, CRM data, and the generated report never leave your machine (h
 everything in your CLI session; API mode only sends transcripts to the endpoint you configure). The
 skill ships no secrets, and `.gitignore` blocks `.env` and any work data from being committed.
 
+New here? Open `docs/guide.html` in a browser for a plain-language overview with diagrams.
+
 See `SKILL.md` for the method and `RUNBOOK.md` for the step-by-step procedure.

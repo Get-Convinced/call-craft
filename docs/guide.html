@@ -1,0 +1,610 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>salescallaudit: a plain guide</title>
+<style>
+  :root{
+    --ink:#1f2328;
+    --muted:#5b626b;
+    --faint:#878f99;
+    --bg:#f6f5f2;
+    --panel:#ffffff;
+    --line:#e3e1db;
+    --line-soft:#eeece7;
+    --accent:#2f6f5e;
+    --accent-soft:#e7f0ec;
+    --warn:#9a5a18;
+    --warn-soft:#f6ecdf;
+    --blue:#2c5f86;
+    --blue-soft:#e6eef4;
+    --shadow:0 1px 2px rgba(30,35,40,.05), 0 8px 24px rgba(30,35,40,.04);
+  }
+  *{box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{
+    margin:0;
+    background:var(--bg);
+    color:var(--ink);
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+    line-height:1.6;
+    font-size:16px;
+    -webkit-font-smoothing:antialiased;
+  }
+  .wrap{max-width:880px;margin:0 auto;padding:0 24px}
+  header.hero{
+    padding:64px 0 40px;
+    border-bottom:1px solid var(--line);
+  }
+  .kicker{
+    font-size:12px;
+    letter-spacing:.14em;
+    text-transform:uppercase;
+    color:var(--accent);
+    font-weight:600;
+    margin:0 0 14px;
+  }
+  h1{
+    font-size:38px;
+    line-height:1.15;
+    margin:0 0 16px;
+    letter-spacing:-.01em;
+  }
+  .lede{
+    font-size:19px;
+    color:var(--muted);
+    margin:0;
+    max-width:62ch;
+  }
+  nav.toc{
+    margin:32px 0 0;
+    padding:18px 20px;
+    background:var(--panel);
+    border:1px solid var(--line);
+    border-radius:12px;
+    box-shadow:var(--shadow);
+  }
+  nav.toc p{margin:0 0 10px;font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:var(--faint);font-weight:600}
+  nav.toc ol{margin:0;padding-left:20px;columns:2;column-gap:34px}
+  nav.toc li{margin:5px 0;break-inside:avoid}
+  nav.toc a{color:var(--ink);text-decoration:none}
+  nav.toc a:hover{color:var(--accent);text-decoration:underline}
+
+  section{padding:46px 0;border-bottom:1px solid var(--line-soft)}
+  section:last-of-type{border-bottom:none}
+  h2{
+    font-size:26px;
+    margin:0 0 8px;
+    letter-spacing:-.01em;
+  }
+  h2 .num{color:var(--faint);font-weight:600;font-size:18px;margin-right:10px}
+  .sub{color:var(--muted);margin:0 0 22px;font-size:17px;max-width:64ch}
+  h3{font-size:18px;margin:30px 0 8px}
+  p{margin:0 0 14px}
+  ul,ol.body{margin:0 0 16px;padding-left:22px}
+  li{margin:6px 0}
+  strong{font-weight:600}
+  .lead-in{font-weight:600;color:var(--ink)}
+
+  .card{
+    background:var(--panel);
+    border:1px solid var(--line);
+    border-radius:12px;
+    padding:22px 24px;
+    box-shadow:var(--shadow);
+    margin:18px 0;
+  }
+  .card h3{margin-top:0}
+
+  .grid2{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+  @media(max-width:680px){.grid2{grid-template-columns:1fr}nav.toc ol{columns:1}h1{font-size:30px}}
+
+  .pill{
+    display:inline-block;
+    font-size:11px;
+    font-weight:600;
+    letter-spacing:.04em;
+    padding:2px 9px;
+    border-radius:20px;
+    vertical-align:middle;
+  }
+  .pill.req{background:var(--accent-soft);color:var(--accent)}
+  .pill.opt{background:var(--blue-soft);color:var(--blue)}
+
+  table{width:100%;border-collapse:collapse;margin:16px 0;font-size:15px}
+  th,td{text-align:left;padding:11px 12px;border-bottom:1px solid var(--line-soft);vertical-align:top}
+  th{font-size:12px;letter-spacing:.06em;text-transform:uppercase;color:var(--faint);font-weight:600}
+  tr:last-child td{border-bottom:none}
+  td.k{font-weight:600;white-space:nowrap}
+
+  .rule{
+    display:flex;
+    gap:14px;
+    padding:16px 0;
+    border-bottom:1px solid var(--line-soft);
+  }
+  .rule:last-child{border-bottom:none}
+  .rule .badge{
+    flex:0 0 34px;
+    height:34px;width:34px;
+    border-radius:9px;
+    background:var(--accent-soft);
+    color:var(--accent);
+    display:flex;align-items:center;justify-content:center;
+    font-weight:700;font-size:15px;
+  }
+  .rule .rbody{flex:1}
+  .rule .rbody b{display:block;margin-bottom:2px}
+  .rule .rbody span{color:var(--muted);font-size:15px}
+
+  figure{margin:24px 0;text-align:center}
+  figure svg{max-width:100%;height:auto}
+  figcaption{font-size:13px;color:var(--faint);margin-top:10px;text-align:center}
+  .svgcard{
+    background:var(--panel);
+    border:1px solid var(--line);
+    border-radius:12px;
+    padding:20px 16px;
+    box-shadow:var(--shadow);
+    overflow-x:auto;
+  }
+
+  .note{
+    background:var(--warn-soft);
+    border:1px solid #ecd9bf;
+    border-radius:10px;
+    padding:14px 18px;
+    margin:18px 0;
+    font-size:15px;
+    color:#6f4a1c;
+  }
+  .note b{color:var(--warn)}
+
+  .quietnote{
+    background:var(--accent-soft);
+    border:1px solid #cfe2da;
+    border-radius:10px;
+    padding:14px 18px;
+    margin:18px 0;
+    font-size:15px;
+    color:#274f44;
+  }
+
+  code.mono{
+    font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
+    background:#f0eee9;
+    border:1px solid var(--line);
+    border-radius:5px;
+    padding:1px 6px;
+    font-size:13px;
+  }
+  pre.cmd{
+    background:#1f2328;
+    color:#e8e6e0;
+    border-radius:10px;
+    padding:14px 18px;
+    overflow-x:auto;
+    font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
+    font-size:14px;
+    margin:16px 0;
+  }
+
+  .footer{padding:40px 0 70px;color:var(--faint);font-size:14px}
+
+  .legend{display:flex;gap:22px;flex-wrap:wrap;justify-content:center;margin-top:6px;font-size:13px;color:var(--muted)}
+  .legend span{display:inline-flex;align-items:center;gap:7px}
+  .sw{width:13px;height:13px;border-radius:3px;display:inline-block;border:1px solid rgba(0,0,0,.12)}
+</style>
+</head>
+<body>
+
+<header class="hero">
+  <div class="wrap">
+    <p class="kicker">A plain guide</p>
+    <h1>salescallaudit</h1>
+    <p class="lede">Hand it your sales team's recorded calls. It reads every one of them and gives you back a single report that grades how your reps actually sell, deal by deal, with the proof attached.</p>
+
+    <nav class="toc">
+      <p>On this page</p>
+      <ol>
+        <li><a href="#what">What it is</a></li>
+        <li><a href="#give">What you give it</a></li>
+        <li><a href="#flow">How a run works</a></li>
+        <li><a href="#get">What you get back</a></li>
+        <li><a href="#rules">The rules that make it fair</a></li>
+        <li><a href="#run">How it runs and where your data goes</a></li>
+        <li><a href="#start">Getting started</a></li>
+      </ol>
+    </nav>
+  </div>
+</header>
+
+<!-- ============================ WHAT IT IS ============================ -->
+<section id="what">
+  <div class="wrap">
+    <h2><span class="num">1</span>What it is</h2>
+    <p class="sub">In one breath: it turns a folder of recorded sales calls into one report that grades how well your reps sold.</p>
+
+    <p>Most sales teams record their calls and then never really look at them. The recordings pile up. Nobody has time to sit and listen to hundreds of hours, so coaching ends up based on gut feeling and a quick glance at the deal pipeline.</p>
+
+    <p>This tool does the listening. It reads the full text of every call, judges each rep against a clear checklist of the moves a good sales call should make, and writes up what it found. You point it at a folder. You get back one web page you can open in any browser.</p>
+
+    <div class="card">
+      <h3>The problem it solves</h3>
+      <ul>
+        <li>Your call recordings hold the truth about how your team sells, but the truth is buried in hours of audio.</li>
+        <li>Your CRM tells you what your reps <em>say</em> happened. It rarely shows what actually happened on the call.</li>
+        <li>Coaching is hard to do at scale because no one reads every call.</li>
+      </ul>
+      <p style="margin-bottom:0">This tool reads every call, scores it the same way every time, and shows you the exact quote behind each score. The judgment is consistent, and you can check its work.</p>
+    </div>
+
+    <p>It is built to work for any company. It does not come pre-loaded with knowledge about your product or your competitors. At the start of a run it researches your company off the web so it understands what you sell before it grades anyone.</p>
+  </div>
+</section>
+
+<!-- ============================ WHAT YOU GIVE ============================ -->
+<section id="give">
+  <div class="wrap">
+    <h2><span class="num">2</span>What you give it</h2>
+    <p class="sub">One thing is required. Everything else is welcome but optional, and nothing optional ever stops a run.</p>
+
+    <figure>
+      <div class="svgcard">
+        <!-- INPUTS -> SKILL -> OUTPUT -->
+        <svg viewBox="0 0 820 360" role="img" aria-label="Inputs flow into the skill and produce one report. One input is required, the rest are optional.">
+          <!-- Inputs column -->
+          <text x="20" y="30" font-size="13" font-weight="700" fill="#5b626b" letter-spacing="1">WHAT YOU PROVIDE</text>
+
+          <!-- required -->
+          <rect x="20" y="48" width="250" height="56" rx="10" fill="#e7f0ec" stroke="#2f6f5e" stroke-width="2"/>
+          <text x="36" y="72" font-size="15" font-weight="700" fill="#274f44">Call transcripts</text>
+          <text x="36" y="92" font-size="12" fill="#3f6157">Required &nbsp;&middot;&nbsp; the one thing you must have</text>
+
+          <!-- optional group -->
+          <rect x="20" y="120" width="250" height="40" rx="9" fill="#ffffff" stroke="#cdd4dc"/>
+          <text x="36" y="145" font-size="13.5" fill="#2c5f86">CRM deal export &nbsp;<tspan fill="#878f99" font-size="11">optional</tspan></text>
+
+          <rect x="20" y="168" width="250" height="40" rx="9" fill="#ffffff" stroke="#cdd4dc"/>
+          <text x="36" y="193" font-size="13.5" fill="#2c5f86">Rep notes &nbsp;<tspan fill="#878f99" font-size="11">optional</tspan></text>
+
+          <rect x="20" y="216" width="250" height="40" rx="9" fill="#ffffff" stroke="#cdd4dc"/>
+          <text x="36" y="241" font-size="13.5" fill="#2c5f86">Stage history &nbsp;<tspan fill="#878f99" font-size="11">optional</tspan></text>
+
+          <rect x="20" y="264" width="250" height="40" rx="9" fill="#ffffff" stroke="#cdd4dc"/>
+          <text x="36" y="289" font-size="13.5" fill="#2c5f86">Company docs &nbsp;<tspan fill="#878f99" font-size="11">optional</tspan></text>
+
+          <!-- arrows into skill -->
+          <defs>
+            <marker id="ar" markerWidth="9" markerHeight="9" refX="7" refY="4.5" orient="auto">
+              <path d="M0,0 L9,4.5 L0,9 z" fill="#9aa1aa"/>
+            </marker>
+          </defs>
+          <line x1="270" y1="76" x2="372" y2="150" stroke="#2f6f5e" stroke-width="2" marker-end="url(#ar)"/>
+          <line x1="270" y1="140" x2="372" y2="165" stroke="#9aa1aa" stroke-width="1.5" marker-end="url(#ar)"/>
+          <line x1="270" y1="188" x2="372" y2="178" stroke="#9aa1aa" stroke-width="1.5" marker-end="url(#ar)"/>
+          <line x1="270" y1="236" x2="372" y2="190" stroke="#9aa1aa" stroke-width="1.5" marker-end="url(#ar)"/>
+          <line x1="270" y1="284" x2="372" y2="205" stroke="#9aa1aa" stroke-width="1.5" marker-end="url(#ar)"/>
+
+          <!-- skill box -->
+          <rect x="378" y="120" width="180" height="120" rx="14" fill="#1f2328"/>
+          <text x="468" y="170" font-size="16" font-weight="700" fill="#ffffff" text-anchor="middle">salescallaudit</text>
+          <text x="468" y="194" font-size="11.5" fill="#b9c0c8" text-anchor="middle">reads, researches,</text>
+          <text x="468" y="210" font-size="11.5" fill="#b9c0c8" text-anchor="middle">scores, writes up</text>
+
+          <!-- arrow to output -->
+          <line x1="558" y1="180" x2="648" y2="180" stroke="#2f6f5e" stroke-width="2.5" marker-end="url(#ar)"/>
+
+          <!-- output -->
+          <rect x="654" y="132" width="150" height="96" rx="12" fill="#e7f0ec" stroke="#2f6f5e" stroke-width="2"/>
+          <text x="729" y="172" font-size="14" font-weight="700" fill="#274f44" text-anchor="middle">One report</text>
+          <text x="729" y="192" font-size="11.5" fill="#3f6157" text-anchor="middle">a single web page</text>
+          <text x="729" y="208" font-size="11.5" fill="#3f6157" text-anchor="middle">you open offline</text>
+        </svg>
+      </div>
+      <div class="legend">
+        <span><span class="sw" style="background:#e7f0ec;border-color:#2f6f5e"></span>required</span>
+        <span><span class="sw" style="background:#ffffff;border-color:#cdd4dc"></span>optional, never blocks a run</span>
+      </div>
+      <figcaption>Inputs go in, one report comes out. Only the transcripts are required.</figcaption>
+    </figure>
+
+    <h3>The one required input</h3>
+    <p><strong>Call transcripts.</strong> These are the text versions of your recorded sales calls. The tool reads common formats out of the box: Read.ai, Gong, Fireflies, Otter, Zoom, or plain text files. One file per call, or a single export. If you have at least one transcript, you can run it.</p>
+
+    <h3>The optional inputs</h3>
+    <p>You give these if you have them. Each one makes the report richer. None of them is needed to start, and a missing one is simply noted, not treated as a problem.</p>
+
+    <table>
+      <thead><tr><th>Input</th><th>What it adds</th></tr></thead>
+      <tbody>
+        <tr><td class="k">CRM deal export <span class="pill opt">optional</span></td><td>A spreadsheet of your deals from Salesforce, HubSpot, Zoho, Pipedrive, or similar. Adds the deal funnel and the check that compares what the CRM claims against what the calls show.</td></tr>
+        <tr><td class="k">Rep notes <span class="pill opt">optional</span></td><td>Whatever your reps wrote down. Used only as a hint, never taken as fact.</td></tr>
+        <tr><td class="k">Stage history <span class="pill opt">optional</span></td><td>The record of how each deal moved through your pipeline. Lets the report show the full arc of a deal over time.</td></tr>
+        <tr><td class="k">Company docs <span class="pill opt">optional</span></td><td>Your own slides, one-pagers, or PDFs. Folded into the background research so the tool understands your product in your own words.</td></tr>
+      </tbody>
+    </table>
+
+    <div class="quietnote">
+      <strong>Optional inputs never block a run.</strong> If you have only transcripts, the tool still reads every call and scores every rep. You simply get a smaller report: the parts that need CRM data (the funnel and the CRM-vs-call check) are left out, and that is stated plainly in the report instead of guessed at.
+    </div>
+  </div>
+</section>
+
+<!-- ============================ HOW A RUN WORKS ============================ -->
+<section id="flow">
+  <div class="wrap">
+    <h2><span class="num">3</span>How a run works</h2>
+    <p class="sub">From your raw files to the finished report, the work moves left to right through a handful of clear steps.</p>
+
+    <figure>
+      <div class="svgcard">
+        <!-- PROCESS FLOW left to right -->
+        <svg viewBox="0 0 880 300" role="img" aria-label="Process flow from raw inputs through research, reading and scoring, deal write-ups, a second check, and the panel, into one report.">
+          <defs>
+            <marker id="fl" markerWidth="10" markerHeight="10" refX="8" refY="5" orient="auto">
+              <path d="M0,0 L10,5 L0,10 z" fill="#2f6f5e"/>
+            </marker>
+          </defs>
+
+          <!-- raw -->
+          <rect x="14" y="118" width="120" height="64" rx="11" fill="#ffffff" stroke="#cdd4dc" stroke-width="1.5"/>
+          <text x="74" y="146" font-size="13" font-weight="700" fill="#1f2328" text-anchor="middle">Your files</text>
+          <text x="74" y="165" font-size="10.5" fill="#5b626b" text-anchor="middle">calls + optional CRM</text>
+
+          <line x1="134" y1="150" x2="166" y2="150" stroke="#2f6f5e" stroke-width="2" marker-end="url(#fl)"/>
+
+          <!-- research -->
+          <rect x="168" y="118" width="120" height="64" rx="11" fill="#e7f0ec" stroke="#2f6f5e" stroke-width="1.5"/>
+          <text x="228" y="142" font-size="12.5" font-weight="700" fill="#274f44" text-anchor="middle">Research</text>
+          <text x="228" y="160" font-size="10.5" fill="#3f6157" text-anchor="middle">learn your</text>
+          <text x="228" y="173" font-size="10.5" fill="#3f6157" text-anchor="middle">company off web</text>
+
+          <line x1="288" y1="150" x2="320" y2="150" stroke="#2f6f5e" stroke-width="2" marker-end="url(#fl)"/>
+
+          <!-- read + score -->
+          <rect x="322" y="100" width="130" height="100" rx="11" fill="#e7f0ec" stroke="#2f6f5e" stroke-width="2"/>
+          <text x="387" y="132" font-size="12.5" font-weight="700" fill="#274f44" text-anchor="middle">Read &amp; score</text>
+          <text x="387" y="151" font-size="10.5" fill="#3f6157" text-anchor="middle">every call,</text>
+          <text x="387" y="164" font-size="10.5" fill="#3f6157" text-anchor="middle">every rep,</text>
+          <text x="387" y="177" font-size="10.5" fill="#3f6157" text-anchor="middle">in full</text>
+
+          <line x1="452" y1="150" x2="484" y2="150" stroke="#2f6f5e" stroke-width="2" marker-end="url(#fl)"/>
+
+          <!-- writeups -->
+          <rect x="486" y="118" width="120" height="64" rx="11" fill="#e7f0ec" stroke="#2f6f5e" stroke-width="1.5"/>
+          <text x="546" y="142" font-size="12.5" font-weight="700" fill="#274f44" text-anchor="middle">Deal write-ups</text>
+          <text x="546" y="160" font-size="10.5" fill="#3f6157" text-anchor="middle">what happened</text>
+          <text x="546" y="173" font-size="10.5" fill="#3f6157" text-anchor="middle">to each deal</text>
+
+          <line x1="606" y1="150" x2="638" y2="150" stroke="#2f6f5e" stroke-width="2" marker-end="url(#fl)"/>
+
+          <!-- check + council -->
+          <rect x="640" y="118" width="120" height="64" rx="11" fill="#e7f0ec" stroke="#2f6f5e" stroke-width="1.5"/>
+          <text x="700" y="142" font-size="12.5" font-weight="700" fill="#274f44" text-anchor="middle">Second check</text>
+          <text x="700" y="160" font-size="10.5" fill="#3f6157" text-anchor="middle">re-grade + a</text>
+          <text x="700" y="173" font-size="10.5" fill="#3f6157" text-anchor="middle">review panel</text>
+
+          <line x1="760" y1="150" x2="792" y2="150" stroke="#2f6f5e" stroke-width="2" marker-end="url(#fl)"/>
+
+          <!-- report -->
+          <rect x="794" y="110" width="74" height="80" rx="11" fill="#1f2328"/>
+          <text x="831" y="146" font-size="12" font-weight="700" fill="#ffffff" text-anchor="middle">Report</text>
+          <text x="831" y="164" font-size="9.5" fill="#b9c0c8" text-anchor="middle">one page</text>
+
+          <!-- caption row -->
+          <text x="74" y="232" font-size="10" fill="#878f99" text-anchor="middle">you bring this</text>
+          <text x="387" y="232" font-size="10" fill="#878f99" text-anchor="middle">the heart of the run</text>
+          <text x="700" y="232" font-size="10" fill="#878f99" text-anchor="middle">trust + judgment</text>
+        </svg>
+      </div>
+      <figcaption>The run moves in one direction: your files, then research, then reading and scoring, then write-ups, then a second check and a panel, then the report.</figcaption>
+    </figure>
+
+    <p>Here is what each step does, in plain terms.</p>
+
+    <div class="card">
+      <ol class="body" style="margin-bottom:0">
+        <li><span class="lead-in">Take in your files.</span> It finds your transcripts and asks once for any optional inputs. Whatever you do not have, it notes and moves on.</li>
+        <li><span class="lead-in">Research your company.</span> It looks your company up on the web, reads review sites and your own docs, and writes a short factual brief on what you sell, who buys it, and who you compete with. This is the background it grades against, so it does not penalize a rep for something that is just how your product works.</li>
+        <li><span class="lead-in">Work out who is who.</span> It figures out each person's role from the calls. Is this a founder, an account executive, a technical helper, a prospector. That matters because a founder is not graded on the same things as a closer.</li>
+        <li><span class="lead-in">Read and score every call.</span> This is the core. It reads each call from start to finish and scores every one of your reps on it, with the rep's own words quoted as proof.</li>
+        <li><span class="lead-in">Write up each deal.</span> If you gave it CRM data, it writes a short post-mortem per deal: how it went, where it lost momentum, why it stalled, and the one change that would have mattered.</li>
+        <li><span class="lead-in">Check its own work.</span> A separate pass re-reads a sample of calls without seeing the first scores and challenges them. Then a panel of four reviewers weighs in on the whole picture.</li>
+        <li><span class="lead-in">Build the report.</span> All of it rolls up into one web page.</li>
+      </ol>
+    </div>
+
+    <p>Throughout, there is a strict division of labor. A model does all the reading and judging. Plain code does the counting, the joining, and the page-building. The code never reads a call to decide what it means, and the model never decides which calls to skip. That keeps the judgment honest and the math reliable.</p>
+  </div>
+</section>
+
+<!-- ============================ WHAT YOU GET ============================ -->
+<section id="get">
+  <div class="wrap">
+    <h2><span class="num">4</span>What you get back</h2>
+    <p class="sub">One report. It opens in any browser, with no internet needed. It has five pages, each answering a different question.</p>
+
+    <div class="card">
+      <h3>1. Diagnosis: what is true of the whole team</h3>
+      <p>The opening page. It tells you the team-wide picture: how deals tend to move through your funnel, where they leak out, which moves your reps most often miss, and the patterns that show up again and again. This is the page a leader reads first.</p>
+    </div>
+
+    <div class="card">
+      <h3>2. Reps: how each person actually sells</h3>
+      <p>One scorecard per rep. The centerpiece is a radar chart: a shape that shows, at a glance, where a rep is strong and where they are weak across the moves a good call makes.</p>
+      <ul>
+        <li><span class="lead-in">A plain explainer for each spoke of the radar.</span> Every point on the chart comes with a sentence saying what it measures and how this rep did on it. No decoding required.</li>
+        <li><span class="lead-in">The full breakdown for every call.</span> You can open any single call and see exactly how the rep was scored on it, dimension by dimension, with the quote that earned each score. Nothing is a black box. If you disagree with a score, you can read the quote and decide for yourself.</li>
+        <li><span class="lead-in">Their craft kept apart from their results.</span> The scorecard shows how well they sold in one place, and what happened to their deals in a separate place. A great rep who lost a deal on price is not dragged down for it.</li>
+      </ul>
+    </div>
+
+    <div class="card">
+      <h3>3. Deals: a post-mortem for each one</h3>
+      <p>Each deal gets a short write-up: how it unfolded, the moment it lost pressure, why it stalled, what kind of stall it was, and the single change that would most likely have turned it. Concrete, with quotes from the actual calls.</p>
+    </div>
+
+    <div class="card">
+      <h3>4. CRM check: does the pipeline match the calls</h3>
+      <p>This page compares what your CRM claims against what the calls actually show. For each important deal fact, it labels the status:</p>
+      <ul>
+        <li><span class="lead-in">Observed.</span> A rep was seen earning it on a recording. It is real.</li>
+        <li><span class="lead-in">Claimed.</span> It sits in the CRM but no call proves it. Treat it with caution.</li>
+        <li><span class="lead-in">Contradicted.</span> The CRM says one thing and a call shows the opposite.</li>
+      </ul>
+      <p style="margin-bottom:0">This is where you find out how much of your pipeline is wishful thinking. It needs CRM data, so it only appears when you provide a CRM export.</p>
+    </div>
+
+    <div class="card">
+      <h3>5. Council: four expert views and a verdict</h3>
+      <p>Four reviewers look at the whole picture independently, each from a different angle: one on the pipeline, one on selling craft, one on deal strategy, one on enablement and operations. None sees the others' opinions. Then a final pass reads all four and writes the consensus, the disagreements, and a ranked list of changes to make.</p>
+    </div>
+
+    <div class="quietnote" style="margin-top:24px">
+      <strong>Every score traces to a quote.</strong> Nothing in the report is an opinion you have to take on faith. Each grade points at the rep's own words on a specific call. You can always check the work.
+    </div>
+  </div>
+</section>
+
+<!-- ============================ THE RULES ============================ -->
+<section id="rules">
+  <div class="wrap">
+    <h2><span class="num">5</span>The rules that make it fair</h2>
+    <p class="sub">These are the principles the audit holds to. They are what make the scores worth trusting rather than just another opinion.</p>
+
+    <div class="card" style="padding:8px 24px">
+      <div class="rule">
+        <div class="badge">1</div>
+        <div class="rbody"><b>Every call is read in full.</b><span>No skimming, no keyword search, no reading only the top few. The number of calls read equals the number of calls you handed over. If it scored a rep, it read the whole call.</span></div>
+      </div>
+      <div class="rule">
+        <div class="badge">2</div>
+        <div class="rbody"><b>How well a rep sold is kept apart from whether the deal closed.</b><span>Skill and outcome live in separate places and never get mixed. A strong rep on a deal lost to price, timing, or office politics is not marked down for the loss.</span></div>
+      </div>
+      <div class="rule">
+        <div class="badge">3</div>
+        <div class="rbody"><b>The CRM is treated as a claim until a call proves it.</b><span>A deal fact written in the CRM is only counted as real if a rep was seen earning it on a recording. Otherwise it is flagged as a claim, not a fact.</span></div>
+      </div>
+      <div class="rule">
+        <div class="badge">4</div>
+        <div class="rbody"><b>If something is not on the recording, it is marked "not seen," not counted as a failure.</b><span>Calls are only one channel. A move that may have happened over email or in person, but is not in the recordings, is marked "not seen" with low confidence. The rep is not punished for it. A move that <em>is</em> on the call but done badly still scores low.</span></div>
+      </div>
+      <div class="rule">
+        <div class="badge">5</div>
+        <div class="rbody"><b>A move that was not due yet is not penalized.</b><span>The model reads each call and works out where the deal sits in its cycle. A first discovery call reads nothing like a price negotiation, so the content itself signals the stage. A late-stage move skipped on an early call is marked "not applicable", not a failure. A CRM, if you provide one, is used only as a hint; the call is what decides, so this works on calls alone.</span></div>
+      </div>
+      <div class="rule">
+        <div class="badge">6</div>
+        <div class="rbody"><b>The proof quote must be the rep's own words.</b><span>A buyer raising an objection is the setup, never the score. To grade how a rep handled a moment, the audit quotes what the rep actually said back.</span></div>
+      </div>
+      <div class="rule">
+        <div class="badge">7</div>
+        <div class="rbody"><b>Numbers only appear once they are added up across many calls.</b><span>A single call gives qualitative detail and quotes, not a headline number. A rep's overall scores show up only after the results from all their calls are combined, so one odd call cannot define them.</span></div>
+      </div>
+    </div>
+
+    <h3>What it grades a rep on</h3>
+    <p>The checklist is built around the moves a business sales call has to make to push a deal toward a decision. They fall into five groups:</p>
+    <table>
+      <thead><tr><th>Group</th><th>The question it answers</th></tr></thead>
+      <tbody>
+        <tr><td class="k">Discovery</td><td>Did the rep find out why the buyer is moving now, what is broken, who pays for the problem, and who wins if it gets fixed?</td></tr>
+        <tr><td class="k">Qualification</td><td>Did the rep learn how the decision actually gets made: the budget holder, the criteria, the approval path, the competition?</td></tr>
+        <tr><td class="k">Solutioning</td><td>Did the rep tie the exact capability to the buyer's specific pain, with believable proof and real substance instead of buzzwords?</td></tr>
+        <tr><td class="k">Deal control</td><td>Did the rep map out who signs and who blocks, arm the internal champion, handle pushback, and lock a real next step?</td></tr>
+        <tr><td class="k">Urgency</td><td>Did the rep build urgency on the buyer's real deadline and get the right senior people involved on both sides?</td></tr>
+      </tbody>
+    </table>
+    <p>Each rep is graded only on the groups their role is responsible for. A prospector is not graded on closing. A founder dropping into a late-stage deal is graded on the leadership moves, not the early discovery. This is what "role-attributed" means: the bar fits the job.</p>
+  </div>
+</section>
+
+<!-- ============================ HOW IT RUNS ============================ -->
+<section id="run">
+  <div class="wrap">
+    <h2><span class="num">6</span>How it runs and where your data goes</h2>
+    <p class="sub">By default it uses the AI assistant you are already working in. There is nothing to sign up for and no key to set up. Your data stays with you.</p>
+
+    <figure>
+      <div class="svgcard">
+        <!-- two ways to run -->
+        <svg viewBox="0 0 760 290" role="img" aria-label="Two ways to run: the default uses your assistant's own model with no setup, the optional way points it at your own API.">
+          <!-- default box -->
+          <rect x="24" y="40" width="320" height="210" rx="14" fill="#e7f0ec" stroke="#2f6f5e" stroke-width="2"/>
+          <rect x="44" y="60" width="92" height="24" rx="12" fill="#2f6f5e"/>
+          <text x="90" y="77" font-size="12" font-weight="700" fill="#ffffff" text-anchor="middle">DEFAULT</text>
+          <text x="44" y="116" font-size="16" font-weight="700" fill="#274f44">Your assistant's model</text>
+          <text x="44" y="144" font-size="13" fill="#3f6157">Runs inside the AI assistant</text>
+          <text x="44" y="163" font-size="13" fill="#3f6157">you are already using.</text>
+          <text x="44" y="191" font-size="13" fill="#3f6157">No signup. No key. Nothing</text>
+          <text x="44" y="210" font-size="13" fill="#3f6157">to install or configure.</text>
+          <text x="44" y="236" font-size="12.5" font-weight="700" fill="#274f44">Best for most runs.</text>
+
+          <!-- optional box -->
+          <rect x="416" y="40" width="320" height="210" rx="14" fill="#ffffff" stroke="#cdd4dc" stroke-width="1.5"/>
+          <rect x="436" y="60" width="98" height="24" rx="12" fill="#2c5f86"/>
+          <text x="485" y="77" font-size="12" font-weight="700" fill="#ffffff" text-anchor="middle">OPTIONAL</text>
+          <text x="436" y="116" font-size="16" font-weight="700" fill="#2c5f86">Your own API</text>
+          <text x="436" y="144" font-size="13" fill="#5b626b">Point it at your own AI</text>
+          <text x="436" y="163" font-size="13" fill="#5b626b">service with a key you add</text>
+          <text x="436" y="182" font-size="13" fill="#5b626b">in a private local file.</text>
+          <text x="436" y="210" font-size="13" fill="#5b626b">For very large piles of calls</text>
+          <text x="436" y="229" font-size="13" fill="#5b626b">or fully hands-off runs.</text>
+        </svg>
+      </div>
+      <figcaption>Two ways to run. The default needs no setup at all. The optional way is there for big jobs.</figcaption>
+    </figure>
+
+    <h3>The default: your assistant's own model</h3>
+    <p>When you run this inside an AI assistant that can do work in the background (the common ones can), it simply uses that assistant's brain to do the reading and grading. You do not sign up for anything. You do not paste in a key. You do not pick a model. It just works with what you already have open.</p>
+
+    <h3>The option: your own API</h3>
+    <p>If you have a very large number of calls, or you want the whole thing to run without you watching, you can point it at your own AI service instead. You do this by putting your key in a small private file on your own machine. This is entirely optional and most people never need it.</p>
+
+    <div class="note">
+      <b>Your data stays with you.</b> The tool ships with no keys and no data of anyone else's. In the default mode, your transcripts, your CRM data, and the finished report all stay inside your own session and never leave your machine. In the optional API mode, the only thing sent out is the transcript text, and only to the service you chose. The private key file is blocked from ever being saved into the tool's code.
+    </div>
+  </div>
+</section>
+
+<!-- ============================ GETTING STARTED ============================ -->
+<section id="start">
+  <div class="wrap">
+    <h2><span class="num">7</span>Getting started</h2>
+    <p class="sub">Put your calls in a folder, point the tool at it, and answer one short set of questions.</p>
+
+    <ol class="body">
+      <li>Gather your call transcripts into a single folder. If you also have a CRM export, rep notes, or company docs, drop those in too.</li>
+      <li>In your AI assistant, run the tool and point it at the folder.</li>
+    </ol>
+
+    <pre class="cmd">/salescallaudit ./my-team-calls</pre>
+
+    <ol class="body" start="3">
+      <li>It asks once for any optional inputs you have. Give what you have, skip what you do not.</li>
+      <li>It tells you which engine it is using and roughly how much reading the run involves.</li>
+      <li>It does the work: research, reading, scoring, write-ups, a second check, and the panel.</li>
+      <li>You get one file back, <code class="mono">report.html</code>, that you open in any browser.</li>
+    </ol>
+
+    <div class="card">
+      <h3>What to expect on size</h3>
+      <p style="margin-bottom:0">A few hundred calls is a large but routine job. If you have thousands, it is worth starting with a focused slice first: one date range or one set of deals, so you can see the report's shape before running the whole pile.</p>
+    </div>
+
+    <div class="quietnote">
+      <strong>A quick recap.</strong> You give it your recorded calls. It reads every one, grades every rep with the proof attached, separates how well they sold from whether the deal closed, treats your CRM as a claim until a call proves it, and hands you one report you can open offline and trust.
+    </div>
+  </div>
+</section>
+
+<div class="footer">
+  <div class="wrap">
+    A plain-language guide to the salescallaudit skill. This page is self-contained and opens offline.
+  </div>
+</div>
+
+</body>
+</html>
