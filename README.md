@@ -10,6 +10,25 @@ any agentic CLI that can read/write files, run Python (stdlib only), search the 
 subagents — Claude Code, Claude cowork, Codex, and similar. By default the judgment work runs as
 subagents using **your** CLI's own model, so there is nothing to sign up for.
 
+## Install
+
+Install straight from this repo with the [`skills`](https://github.com/vercel-labs/skills) CLI — no
+clone and nothing to publish; it copies the skill from GitHub into your agent's skills directory:
+
+```bash
+# Global — available in every project (~/.claude/skills/)
+npx skills add -g Get-Convinced/call-craft
+
+# Or project-local (./.claude/skills/)
+npx skills add Get-Convinced/call-craft
+```
+
+This works in Claude Code and 70+ other agents. Add `-a claude-code -y` for a non-interactive
+(CI-friendly) install, or `--list` to preview first. Restart your CLI afterward, then run `/call-craft`.
+
+Prefer to do it by hand? Clone this repo into your skills directory (`~/.claude/skills/call-craft`
+for Claude Code).
+
 ## What you provide
 
 | Input | Required? | Formats |
